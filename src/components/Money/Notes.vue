@@ -9,11 +9,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 
 @Component
-export default class Notes extends Vue{
-  value = ''
+export default class Notes extends Vue {
+  value = '';
+@Watch('value')
+  onValueChange(value: string) {
+    this.$emit('update:value', value);
+  }
 }
 </script>
 
@@ -24,9 +28,11 @@ export default class Notes extends Vue{
   padding-left: 16px;
   display: flex;
   align-items: center;
+
   .name {
     padding-right: 16px;
   }
+
   input {
     height: 64px;
     flex-grow: 1;
